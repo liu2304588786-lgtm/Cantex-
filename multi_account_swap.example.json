@@ -1,0 +1,129 @@
+{
+  "base_url": "https://api.cantex.io",
+  "api_key_dir": "secrets",
+  "run": {
+    "interval_seconds": 10,
+    "success_interval_seconds": 60,
+    "dry_run": true,
+    "run_immediately": true,
+    "max_runs": null
+  },
+  "launcher": {
+    "log_dir": "logs",
+    "startup_stagger_seconds": 0
+  },
+  "strategy": {
+    "randomize_pair": true,
+    "instruments": [
+      {
+        "instrument_id": "Amulet",
+        "instrument_admin": "DSO::1220b1431ef217342db44d516bb9befde802be7d8899637d290895fa58880f19accc",
+        "symbol": "CC"
+      },
+      {
+        "instrument_id": "USDCx",
+        "instrument_admin": "decentralized-usdc-interchain-rep::12208115f1e168dd7e792320be9c4ca720c751a02a3053c7606e1c1cd3dad9bf60ef",
+        "symbol": "USDCx"
+      },
+      {
+        "instrument_id": "CBTC",
+        "instrument_admin": "cbtc-network::12205af3b949a04776fc48cdcc05a060f6bda2e470632935f375d1049a8546a3b262",
+        "symbol": "XBTC"
+      }
+    ],
+    "reference_instrument": {
+      "instrument_id": "Amulet",
+      "instrument_admin": "DSO::1220b1431ef217342db44d516bb9befde802be7d8899637d290895fa58880f19accc",
+      "symbol": "CC"
+    },
+    "min_reference_ticket_size": "10",
+    "sell_ratio_min": "0.30",
+    "sell_ratio_max": "0.99",
+    "min_sell_amount": "6",
+    "max_network_fee": "0.15",
+    "max_slippage": "0.005",
+    "create_intent_account": true,
+    "amount_precision": 10
+  },
+  "accounts": [
+    {
+      "name": "account-01",
+      "operator_key_env": "CANTEX_OPERATOR_KEY",
+      "trading_key_env": "CANTEX_TRADING_KEY",
+      "proxy_url_env": "CANTEX_PROXY_ACCOUNT_01",
+      "log_path": "logs/account-01.log"
+    },
+    {
+      "name": "account-02",
+      "operator_key_env": "CANTEX_OPERATOR_KEY_ACC02",
+      "trading_key_env": "CANTEX_TRADING_KEY_ACC02",
+      "proxy_url_env": "CANTEX_PROXY_ACCOUNT_02",
+      "log_path": "logs/account-02.log",
+      "enabled": false
+    },
+    {
+      "name": "account-03",
+      "operator_key_env": "CANTEX_OPERATOR_KEY_ACC03",
+      "trading_key_env": "CANTEX_TRADING_KEY_ACC03",
+      "proxy_url_env": "CANTEX_PROXY_ACCOUNT_03",
+      "log_path": "logs/account-03.log",
+      "enabled": false
+    },
+    {
+      "name": "account-04",
+      "operator_key_env": "CANTEX_OPERATOR_KEY_ACC04",
+      "trading_key_env": "CANTEX_TRADING_KEY_ACC04",
+      "proxy_url_env": "CANTEX_PROXY_ACCOUNT_04",
+      "log_path": "logs/account-04.log",
+      "enabled": false
+    },
+    {
+      "name": "account-05",
+      "operator_key_env": "CANTEX_OPERATOR_KEY_ACC05",
+      "trading_key_env": "CANTEX_TRADING_KEY_ACC05",
+      "proxy_url_env": "CANTEX_PROXY_ACCOUNT_05",
+      "log_path": "logs/account-05.log",
+      "enabled": false
+    },
+    {
+      "name": "account-06",
+      "operator_key_env": "CANTEX_OPERATOR_KEY_ACC06",
+      "trading_key_env": "CANTEX_TRADING_KEY_ACC06",
+      "proxy_url_env": "CANTEX_PROXY_ACCOUNT_06",
+      "log_path": "logs/account-06.log",
+      "enabled": false
+    },
+    {
+      "name": "account-07",
+      "operator_key_env": "CANTEX_OPERATOR_KEY_ACC07",
+      "trading_key_env": "CANTEX_TRADING_KEY_ACC07",
+      "proxy_url_env": "CANTEX_PROXY_ACCOUNT_07",
+      "log_path": "logs/account-07.log",
+      "enabled": false
+    },
+    {
+      "name": "account-08",
+      "operator_key_env": "CANTEX_OPERATOR_KEY_ACC08",
+      "trading_key_env": "CANTEX_TRADING_KEY_ACC08",
+      "proxy_url_env": "CANTEX_PROXY_ACCOUNT_08",
+      "log_path": "logs/account-08.log",
+      "enabled": false
+    },
+    {
+      "name": "account-09",
+      "operator_key_env": "CANTEX_OPERATOR_KEY_ACC09",
+      "trading_key_env": "CANTEX_TRADING_KEY_ACC09",
+      "proxy_url_env": "CANTEX_PROXY_ACCOUNT_09",
+      "log_path": "logs/account-09.log",
+      "enabled": false
+    },
+    {
+      "name": "account-10",
+      "operator_key_env": "CANTEX_OPERATOR_KEY_ACC10",
+      "trading_key_env": "CANTEX_TRADING_KEY_ACC10",
+      "proxy_url_env": "CANTEX_PROXY_ACCOUNT_10",
+      "log_path": "logs/account-10.log",
+      "enabled": false
+    }
+  ]
+}
