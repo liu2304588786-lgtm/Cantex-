@@ -57,6 +57,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--max-runs", type=int, help="覆盖每个子进程的最大轮数。")
     parser.add_argument("--interval-seconds", type=int, help="覆盖每个子进程轮询秒数。")
     parser.add_argument("--interval-minutes", type=int, help="覆盖每个子进程轮询分钟数。")
+    parser.add_argument(
+        "--clear-logs",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="鍚姩鍓嶆竻绌烘棫鏃ュ織鍜岃祫閲戝揩鐓с€?",
+    )
     return parser
 
 
@@ -170,6 +176,37 @@ def prepare_child_env(account: AccountConfig) -> dict[str, str]:
     return env
 
 
+def truncate_file(path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "wb"):
+        pass
+
+
+def clear_previous_logs(
+    launcher_settings: LauncherSettings,
+    accounts: Sequence[AccountConfig],
+) -> None:
+    target_logs: set[Path] = set()
+    for log_path in launcher_settings.log_dir.glob("*.log"):
+        target_logs.add(log_path.expanduser().resolve())
+    for account in accounts:
+        if account.log_path:
+            target_logs.add(Path(account.log_path).expanduser().resolve())
+        else:
+            target_logs.add((launcher_settings.log_dir / f"{account.name}.log").resolve())
+    target_logs.add((launcher_settings.log_dir / "funds_overview.log").resolve())
+    target_logs.add(Path(__file__).resolve().with_name("balance.log"))
+
+    for log_path in target_logs:
+        truncate_file(log_path)
+
+    state_dir = launcher_settings.log_dir / ".funds_state"
+    if state_dir.exists():
+        for state_file in state_dir.glob("*"):
+            if state_file.is_file():
+                state_file.unlink()
+
+
 def start_child(
     args: argparse.Namespace,
     launcher_settings: LauncherSettings,
@@ -217,9 +254,16 @@ def stop_children(children: list[ChildProcess]) -> None:
         child.log_handle.close()
 
 
-def run_launcher(args: argparse.Namespace) -> int:
-    launcher_settings = load_launcher_settings(args)
-    accounts = load_accounts(args)
+def run_launcher(
+    args: argparse.Namespace,
+    *,
+    launcher_settings: LauncherSettings | None = None,
+    accounts: list[AccountConfig] | None = None,
+) -> int:
+    if launcher_settings is None:
+        launcher_settings = load_launcher_settings(args)
+    if accounts is None:
+        accounts = load_accounts(args)
     if not accounts:
         logging.warning("没有可启动的账号。")
         return 0
@@ -260,9 +304,25 @@ def run_launcher(args: argparse.Namespace) -> int:
 def main(argv: Sequence[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-    configure_logging(args.log_level)
     try:
-        return run_launcher(args)
+        launcher_settings = load_launcher_settings(args)
+        accounts = load_accounts(args)
+    except ValueError as exc:
+        parser.error(str(exc))
+
+    if args.clear_logs:
+        clear_previous_logs(launcher_settings, accounts)
+
+    configure_logging(args.log_level)
+    if args.clear_logs:
+        logging.info("已清空旧日志并重置资金状态快照。")
+
+    try:
+        return run_launcher(
+            args,
+            launcher_settings=launcher_settings,
+            accounts=accounts,
+        )
     except ValueError as exc:
         parser.error(str(exc))
     return 2

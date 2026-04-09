@@ -2,9 +2,11 @@
   "base_url": "https://api.cantex.io",
   "api_key_dir": "secrets",
   "run": {
-    "interval_seconds": 10,
-    "success_interval_seconds": 60,
-    "dry_run": true,
+    "interval_seconds_min": 20,
+    "interval_seconds_max": 60,
+    "swap_interval_minutes_min": 1,
+    "swap_interval_minutes_max": 5,
+    "dry_run": false,
     "run_immediately": true,
     "max_runs": null
   },
@@ -14,6 +16,8 @@
   },
   "strategy": {
     "randomize_pair": true,
+    "prefer_low_buy_high_sell": true,
+    "min_value_edge_ratio": "0",
     "instruments": [
       {
         "instrument_id": "Amulet",
@@ -40,7 +44,7 @@
     "sell_ratio_min": "0.30",
     "sell_ratio_max": "0.99",
     "min_sell_amount": "6",
-    "max_network_fee": "0.15",
+    "max_network_fee": "0.2",
     "max_slippage": "0.005",
     "create_intent_account": true,
     "amount_precision": 10

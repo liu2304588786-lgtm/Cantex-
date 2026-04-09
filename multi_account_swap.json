@@ -2,9 +2,11 @@
   "base_url": "https://api.cantex.io",
   "api_key_dir": "secrets",
   "run": {
-    "interval_seconds": 10,
-    "success_interval_seconds": 60,
-    "dry_run": true,
+    "interval_seconds_min": 20,
+    "interval_seconds_max": 60,
+    "swap_interval_minutes_min": 1,
+    "swap_interval_minutes_max": 5,
+    "dry_run": false,
     "run_immediately": true,
     "max_runs": null
   },
@@ -14,6 +16,8 @@
   },
   "strategy": {
     "randomize_pair": true,
+    "prefer_low_buy_high_sell": true,
+    "min_value_edge_ratio": "0",
     "instruments": [
       {
         "instrument_id": "Amulet",
@@ -40,7 +44,7 @@
     "sell_ratio_min": "0.30",
     "sell_ratio_max": "0.99",
     "min_sell_amount": "6",
-    "max_network_fee": "0.15",
+    "max_network_fee": "0.2",
     "max_slippage": "0.005",
     "create_intent_account": true,
     "amount_precision": 10
@@ -59,7 +63,7 @@
       "trading_key_env": "CANTEX_TRADING_KEY_ACC02",
       "proxy_url_env": "CANTEX_PROXY_ACCOUNT_02",
       "log_path": "logs/account-02.log",
-      "enabled": false
+      "enabled": true
     },
     {
       "name": "account-03",
@@ -67,7 +71,7 @@
       "trading_key_env": "CANTEX_TRADING_KEY_ACC03",
       "proxy_url_env": "CANTEX_PROXY_ACCOUNT_03",
       "log_path": "logs/account-03.log",
-      "enabled": false
+      "enabled": true
     },
     {
       "name": "account-04",
@@ -75,7 +79,7 @@
       "trading_key_env": "CANTEX_TRADING_KEY_ACC04",
       "proxy_url_env": "CANTEX_PROXY_ACCOUNT_04",
       "log_path": "logs/account-04.log",
-      "enabled": false
+      "enabled": true
     },
     {
       "name": "account-05",
@@ -83,7 +87,7 @@
       "trading_key_env": "CANTEX_TRADING_KEY_ACC05",
       "proxy_url_env": "CANTEX_PROXY_ACCOUNT_05",
       "log_path": "logs/account-05.log",
-      "enabled": false
+      "enabled": true
     },
     {
       "name": "account-06",
@@ -91,7 +95,7 @@
       "trading_key_env": "CANTEX_TRADING_KEY_ACC06",
       "proxy_url_env": "CANTEX_PROXY_ACCOUNT_06",
       "log_path": "logs/account-06.log",
-      "enabled": false
+      "enabled": true
     },
     {
       "name": "account-07",
@@ -99,7 +103,7 @@
       "trading_key_env": "CANTEX_TRADING_KEY_ACC07",
       "proxy_url_env": "CANTEX_PROXY_ACCOUNT_07",
       "log_path": "logs/account-07.log",
-      "enabled": false
+      "enabled": true
     },
     {
       "name": "account-08",
@@ -107,7 +111,7 @@
       "trading_key_env": "CANTEX_TRADING_KEY_ACC08",
       "proxy_url_env": "CANTEX_PROXY_ACCOUNT_08",
       "log_path": "logs/account-08.log",
-      "enabled": false
+      "enabled": true
     },
     {
       "name": "account-09",
@@ -115,7 +119,7 @@
       "trading_key_env": "CANTEX_TRADING_KEY_ACC09",
       "proxy_url_env": "CANTEX_PROXY_ACCOUNT_09",
       "log_path": "logs/account-09.log",
-      "enabled": false
+      "enabled": true
     },
     {
       "name": "account-10",
